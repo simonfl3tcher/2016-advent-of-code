@@ -5,11 +5,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "mocha \"day-*/**/*.spec.js\""
+    "test": "mocha \"day-*/**/*.spec.js\" --resursive --compilers js:babel-core/register"
   },
   "standard": {
     "env": [
       "mocha"
     ]
+  },
+  "devDependencies": {
+    "babel-register": "^6.18.0",
+    "mocha": "^3.2.0"
   }
 }
