@@ -1,0 +1,15 @@
+{
+  "name": "2016-advent-of-code",
+  "description": "2016 Advent Of Code written in JS",
+  "author": "Simon Fletcher <simonfletcher0@gmail.com>",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "mocha \"day-*/**/*.spec.js\""
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ]
+  }
+}
