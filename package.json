@@ -5,7 +5,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "mocha \"day-*/**/*.spec.js\" --resursive --compilers js:babel-core/register"
+    "test": "mocha \"day-*/**/*.spec.js\" --resursive --compilers js:babel-core/register",
+    "test:watch": "mocha \"day-*/**/*.spec.js\" --resursive --compilers js:babel-core/register --watch"
   },
   "standard": {
     "env": [
