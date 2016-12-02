@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "test": "mocha \"day-*/**/*.spec.js\" --resursive --compilers js:babel-core/register",
-    "test:watch": "mocha \"day-*/**/*.spec.js\" --resursive --compilers js:babel-core/register --watch"
+    "test:watch": "mocha \"day-*/**/*.spec.js\" --resursive --compilers js:babel-core/register --watch --growl"
   },
   "standard": {
     "env": [
