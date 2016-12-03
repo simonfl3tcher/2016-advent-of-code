@@ -4,6 +4,8 @@ var module = (function() {
   const input = fs.readFileSync('./input.txt').toString().replace(/ /g, '').split(',')
 
   var run = function() {
+    var occurance_array = [];
+    var first_occurance_of_step;
     var orientation = 0;
     var xy = {
       x: 0,
@@ -33,32 +35,42 @@ var module = (function() {
 
     var take_move = function(move, acc) {
       var x = rotate(move);
-      var length = move.substring(1);
+      var length = parseInt(move.substring(1));
 
       switch(x){
         case 0:
-          acc.y += parseInt(length)
-          loop_steps(acc, 'y', '+', length);
+          return loop_steps(acc, 'y', '+', length);
           break;
         case 1:
-          acc.x += parseInt(length)
-          loop_steps(acc, 'x', '+', length);
+          return loop_steps(acc, 'x', '+', length);
           break;
         case 2:
-          acc.y -= parseInt(length)
-          loop_steps(acc, 'y', '-', length);
+          return loop_steps(acc, 'y', '-', length);
           break;
         case 3:
-          acc.x -= parseInt(length)
-          loop_steps(acc, 'x', '-', length);
+          return loop_steps(acc, 'x', '-', length);
           break;
       }
+    }
 
+    var loop_steps = function(acc, key, positive_or_negative, length) {
+      for (i = 1; i <= length; i++) {
+        if(positive_or_negative == '+'){
+          acc[key] += 1;
+        } else {
+          acc[key] -= 1;
+        }
+        do_occurance_check(acc);
+      }
       return acc;
     }
 
-    var do_occurance_check = function() {
-      console.log('123');
+    var do_occurance_check = function(acc) {
+      var str = acc.x + '.' + acc.y;
+      if(!first_occurance_of_step && occurance_array.indexOf(str) > -1) {
+        first_occurance_of_step = str;
+      }
+      occurance_array.push(str);
     }
 
     var take_steps = function(moves) {
@@ -72,7 +84,13 @@ var module = (function() {
       return Math.abs(obj.x) + Math.abs(obj.y);
     }
 
-    console.log(calculate_result());
+    var calculate_first_occurance_step = () => {
+      array = first_occurance_of_step.split('.');
+      return Math.abs(array[0]) + Math.abs(array[1]);
+    }
+
+    console.log("Puzzle 1: " + calculate_result());
+    console.log("Puzzle 2: " + calculate_first_occurance_step());
   }
 
   return {
