@@ -41,13 +41,11 @@ var module = (function() {
       }, 0)
   }
 
-  var one = () => {
-    console.log(
-      run_do_calculation_on_array(input)
-    )
+  var puzzle_1 = () => {
+    return run_do_calculation_on_array(input)
   }
 
-  var two = () => {
+  var puzzle_2 = () => {
     var final_array = []
     var split_and_formatted_array =
       input.map(function(value) {
@@ -58,13 +56,15 @@ var module = (function() {
       final_array = final_array.concat(slice.transpose());
     });
 
-    console.log(
-      run_do_calculation_on_array(final_array)
-    )
+    return run_do_calculation_on_array(final_array)
+  }
+
+  var run = () => {
+    console.log("Puzzle 1: " + puzzle_1());
+    console.log("Puzzle 2: " + puzzle_2());
   }
 
   return {
-    one: one,
-    two: two
+    run: run
   }
 })();
