@@ -2,7 +2,29 @@
 
 My code for the 2016 Advent Of Code challenge.
 
-## Check everything is running OK.
+## Find answer to single a day
+
+  1. cd into the day:
+  ```bash
+  cd day-1
+  ```
+
+  2. Run node
+  ```bash
+  node
+  ```
+
+  3. Load file into REPL
+  ```javascript
+  .load solve.js
+  ```
+
+  4. Run module
+  ```javascript
+  module.run()
+  ```
+
+## TODO: Check everything is running OK.
 
   1. Install dependencies:
 
