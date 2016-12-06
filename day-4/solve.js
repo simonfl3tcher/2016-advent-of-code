@@ -1,4 +1,5 @@
 var fs = require('fs');
+require('../support');
 
 Array.prototype.sort_by_count_then_name = function() {
   return this.sort(function(a,b){
@@ -37,14 +38,17 @@ var module = (function() {
     , {});
 
   var do_calculation = (value, acc) => {
-    var matches      = get_regex_matches(value);
-    var characters   = matches[1].replace(/-/g, '').split('');
-    var chars_object = character_array_to_count_object(characters)
-    var ordered      = Object.keys(chars_object).sort()
-      .reduce(function(acc, key) {
-        acc.push({key: key, count: chars_object[key]});
-        return acc;
-      }, []);
+    var matches = get_regex_matches(value)
+    var chars_object = matches[1].replace(/-/g, '')
+      .split('')
+      .andThen(
+        (characters) => character_array_to_count_object(characters)
+      )
+
+    var ordered = Object.keys(chars_object)
+      .sort()
+      .reduce((acc, key) => [ ...acc, {key: key, count: chars_object[key]}], []);
+
 
     var expected_key_match = ordered
       .sort_by_count_then_name()
@@ -64,7 +68,9 @@ var module = (function() {
   }
 
   var without_decoy_data = () =>
-    input.reduce((acc, value) => do_calculation(value, acc), {keys: [], sector_ids: [], count: 0});
+    input.reduce(
+      (acc, value) => do_calculation(value, acc), {keys: [], sector_ids: [], count: 0}
+    );
 
   var shift_cipher_calculator = (matches, value) => {
     if(value == '-'){

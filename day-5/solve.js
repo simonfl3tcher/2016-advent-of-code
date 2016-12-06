@@ -1,13 +1,11 @@
 var module = (function() {
   const input = 'ugkcyxxp';
 
-  var hash_and_hex = (str) => {
-    return crypto.createHash('md5').update(str).digest('hex');
-  }
+  var hash_and_hex = (str) =>
+    crypto.createHash('md5').update(str).digest('hex');
 
-  var does_num_plus_input_match_condition = (num) => {
-    return num.substr(0, 5) == '00000';
-  }
+  var does_num_plus_input_match_condition = (num) =>
+    num.substr(0, 5) == '00000'
 
   var puzzle_1 = () => {
     var acc = [];
@@ -15,7 +13,7 @@ var module = (function() {
     while(true) {
       hash = hash_and_hex(input + num.toString());
       if(does_num_plus_input_match_condition(hash)){
-        acc.push(hash.substr(5,1))
+        acc = [ ...acc, hash.substr(5,1) ]
       }
 
       if(acc.length == 8) {
@@ -49,7 +47,7 @@ var module = (function() {
 
     return Object.keys(obj)
       .sort()
-      .map(function(v) { return obj[v] })
+      .map((v) => obj[v])
       .join('');
   }
 

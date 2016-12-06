@@ -3,7 +3,7 @@ var fs = require('fs');
 var module = (function() {
   const input = fs.readFileSync('./input.txt').toString().replace(/ /g, '').split(',')
 
-  var run = function() {
+  var run = () => {
     var occurance_array = [];
     var first_occurance_of_step;
     var orientation = 0;
@@ -33,8 +33,8 @@ var module = (function() {
       return orientation;
     }
 
-    var take_move = function(move, acc) {
-      var x = rotate(move);
+    var take_move = (move, acc) => {
+      var x      = rotate(move);
       var length = parseInt(move.substring(1));
 
       switch(x){
@@ -53,7 +53,7 @@ var module = (function() {
       }
     }
 
-    var loop_steps = function(acc, key, positive_or_negative, length) {
+    var loop_steps = (acc, key, positive_or_negative, length) => {
       for (i = 1; i <= length; i++) {
         if(positive_or_negative == '+'){
           acc[key] += 1;
@@ -65,19 +65,16 @@ var module = (function() {
       return acc;
     }
 
-    var do_occurance_check = function(acc) {
+    var do_occurance_check = (acc) => {
       var str = acc.x + '.' + acc.y;
       if(!first_occurance_of_step && occurance_array.indexOf(str) > -1) {
         first_occurance_of_step = str;
       }
-      occurance_array.push(str);
+      occurance_array = [...occurance_array, str];
     }
 
-    var take_steps = function(moves) {
-      return moves.reduce(function(acc, value){
-        return take_move(value, acc);
-      }, xy)
-    }
+    var take_steps = (moves) =>
+      moves.reduce((acc, value) => take_move(value, acc), xy)
 
     var calculate_result = () => {
       obj = take_steps(input);

@@ -20,9 +20,9 @@ var module = (function() {
       "2.1": 8,
       "2.2": 9
     }
-    var array_of_moves = input.reduce(function(acc, value) {
+    var array_of_moves = input.reduce((acc, value) => {
       acc.push(
-        value.split('').reduce(function(accumulator, value) {
+        value.split('').reduce((accumulator, value) => {
           switch(value) {
             case "U":
               if(accumulator[0] > 0) {
@@ -55,7 +55,7 @@ var module = (function() {
       return acc;
     }, []);
 
-    return array_of_moves.map(function(move) {
+    return array_of_moves.map((move) => {
         return key[move];
       }).join('')
   }
@@ -70,7 +70,7 @@ var module = (function() {
     ]
     var position = [2,0]
 
-    var take_grid_step = function(step, current_position) {
+    var take_grid_step = (step, current_position) => {
       switch(step) {
         case "U":
           if(grid[current_position[0]-1] && current_position[1].toString() in grid[current_position[0]-1] && current_position[0] > 0) {
@@ -99,17 +99,13 @@ var module = (function() {
       }
     }
 
-    return input.reduce(function(acc, value) {
+    return input.reduce((acc, value) => {
         var line_move =
-          value.split('').reduce(function(accumulator, value) {
-            return take_grid_step(value, accumulator)
-          }, position)
+          value.split('').reduce((accumulator, value) =>
+            take_grid_step(value, accumulator)
+          , position)
 
-        acc.push(
-          grid[line_move[0]][line_move[1].toString()]
-        );
-
-        return acc
+        return [ ...acc, grid[line_move[0]][line_move[1].toString()]]
       }, []).join('')
   }
 
