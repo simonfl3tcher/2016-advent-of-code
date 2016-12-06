@@ -18,7 +18,7 @@ var module = (function() {
       return Object.assign({}, acc);
     }, {})
 
-  var run_split_and_sort = (sort_func) => {
+  var error_corrected_message = (sort_func) => {
     var obj = split_input_into_data_structure();
     return Object.keys(obj).map((key) => {
       return sort_func.call(Object.keys(obj[key]), obj[key])[0];
@@ -34,8 +34,8 @@ var module = (function() {
   }
 
   var run = () => {
-    console.log("Puzzle 1: " + run_split_and_sort(puzzle_1_sort));
-    console.log("Puzzle 2: " + run_split_and_sort(puzzle_2_sort));
+    console.log("Puzzle 1: " + error_corrected_message(puzzle_1_sort));
+    console.log("Puzzle 2: " + error_corrected_message(puzzle_2_sort));
   }
 
   return {
