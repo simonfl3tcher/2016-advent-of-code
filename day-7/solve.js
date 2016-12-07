@@ -1,48 +1,19 @@
-var first = (function() {
-    var chainNames = ["then", "andThen", "next"];
-    var endChainNames = ["finally", "andFinally", "last"];
-    var chain = function(fn) {
-        var f1 = function(g) {
-            var func = function() {return g.call(this, fn.apply(this, arguments));};
-            chain(func);
-            return func;
-        };
-        var f2 = function(g) {
-            return function() {return g.call(this, fn.apply(this, arguments));};
-        };
-        chainNames.forEach(function(name) {fn[name] = f1;});
-        endChainNames.forEach(function(name) {fn[name] = f2;});
-    };
-    return function(f) {
-        var fn = function() {
-            return f.apply(this, arguments);
-        };
-        chain(fn);
-        return fn;
-    };
-}());
-
-Object.defineProperty(Object.prototype, 'andThen', {
-  value: function (transform) { return transform(this); }
-});
-
 var module = (function() {
+  const regex_1_bracket = /\[\w*(\w)((?!\1)\w)\2\1\w*\]/
+  const regex_1 = /(\w)((?!\1)\w)\2\1/
+  const regex_2 = /((\w)((?!\2).)\2(?!([^\[]*\]))).*(\[\w*\3\2\3\w*\])|(\[\w*(\w)((?!\7).)\7\w*\]).*(\8\7\8(?!([^\[]*\])))/
+  const input = fs.readFileSync('./input.txt')
+    .toString()
+    .trim()
+    .split('\n')
 
-  var add1 = function(x) {return x + 1;};
-  var mult2 = function(x) {return x * 2;};
-  var square = function(x) {return x * x;};
-  var negate = function(x) {return -x;};
+  var puzzle_1 = () =>
+    input.reduce((acc, value) =>
+      (!regex_1_bracket.exec(value) && regex_1.exec(value)) ? acc+1 : acc
+    , 0)
 
-  var puzzle_1 = function() {
-    var x = first(add1).then(mult2).andFinally(square);
-    console.log(add1(2).andThen(mult2).andThen(square));
-    console.log(x(2));
-    return 1;
-  }
-
-  var puzzle_2 = function() {
-    return 2;
-  }
+  var puzzle_2 = () =>
+    input.reduce((acc, value) => regex_2.exec(value) ? acc+1 : acc, 0);
 
   var run = () => {
     console.log("Puzzle 1: " + puzzle_1());
